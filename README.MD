@@ -8,6 +8,12 @@ Downloads for the mod can be found Curse: Soon(tm)
 Just for the fun of it, and to spruce up the mod a bit, i have added an optional dependency to Mist Core, if Mist Core is available when running the
 mod a special Mist biome has the chance of spawning along with the normal biomes added by the mod.
 
+# TODO - Sort of...
+I don't plan on making too many big changes, the mod is good enough as it is, my goal is to keep the mod up to date without switching maintainer with every single update. Any additions i add will be minor Quality of Life improvements.
+
+* Upgrade the config to support the Forge in-game config system.
+* Add more day mobs, like a Daylight Skeleton to live alongside the Daylight Zombies.
+
 # License
 [LICENSE](LICENSE.MD)
 
