@@ -21,13 +21,13 @@ import net.minecraft.world.WorldType;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.chunk.ChunkPrimer;
-import net.minecraft.world.gen.IChunkGenerator;
-import net.minecraft.world.gen.ChunkGeneratorSettings;
+import net.minecraft.world.chunk.IChunkGenerator;
+import net.minecraft.world.gen.ChunkProviderSettings;
 import net.minecraft.world.gen.MapGenBase;
 import net.minecraft.world.gen.MapGenCaves;
 import net.minecraft.world.gen.NoiseGeneratorOctaves;
 import net.minecraft.world.gen.NoiseGeneratorPerlin;
-import net.minecraft.world.gen.ChunkGeneratorSettings.Factory;
+import net.minecraft.world.gen.ChunkProviderSettings.Factory;
 import net.minecraft.world.gen.feature.WorldGenDungeons;
 import net.minecraft.world.gen.structure.MapGenMineshaft;
 import net.minecraft.world.gen.structure.MapGenStronghold;
@@ -52,7 +52,7 @@ public class ChunkGeneratorWasteland implements IChunkGenerator {
    private final WorldType terrainType;
    private final double[] heightMap;
    private final float[] biomeWeights;
-   private ChunkGeneratorSettings settings;
+   private ChunkProviderSettings settings;
    private double[] depthBuffer = new double[256];
    private MapGenBase caveGenerator = new MapGenCaves();
    private MapGenStronghold strongholdGenerator = new MapGenStronghold();
@@ -179,7 +179,7 @@ public class ChunkGeneratorWasteland implements IChunkGenerator {
       }
    }
 
-   public Chunk generateChunk(int x, int z) {
+   public Chunk provideChunk(int x, int z) {
       this.rand.setSeed((long)x * 341873128712L + (long)z * 132897987541L);
       ChunkPrimer chunkprimer = new ChunkPrimer();
       this.setBlocksInChunk(x, z, chunkprimer);
@@ -378,14 +378,8 @@ public class ChunkGeneratorWasteland implements IChunkGenerator {
    }
 
    @Nullable
-   @Override
-   public BlockPos getNearestStructurePos(World worldIn, String structureName, BlockPos position, boolean findUnexplored) {
-      return null;
-   }
-
-   @Nullable
    public BlockPos getStrongholdGen(World worldIn, String structureName, BlockPos position, boolean findUnexplored) {
-      return "Stronghold".equals(structureName) && this.strongholdGenerator != null?this.strongholdGenerator.getNearestStructurePos(worldIn, position, findUnexplored):null;
+      return "Stronghold".equals(structureName) && this.strongholdGenerator != null?this.strongholdGenerator.getClosestStrongholdPos(worldIn, position, findUnexplored):null;
    }
 
    public void recreateStructures(Chunk chunkIn, int x, int z) {
@@ -403,11 +397,6 @@ public class ChunkGeneratorWasteland implements IChunkGenerator {
          }
       }
 
-   }
-
-   @Override
-   public boolean isInsideStructure(World worldIn, String structureName, BlockPos pos) {
-      return false;
    }
 
    static {

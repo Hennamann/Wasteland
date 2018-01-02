@@ -20,7 +20,7 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import static com.legacy.wasteland.Wasteland.MOD_ID;
 import static com.legacy.wasteland.Wasteland.VERSION;
 
-@Mod(name = "Wasteland Mod", modid = MOD_ID, version = VERSION, acceptedMinecraftVersions = "[1.12.2]")
+@Mod(name = "Wasteland Mod", modid = MOD_ID, version = VERSION, acceptedMinecraftVersions = "[1.11.2]")
 public class Wasteland {
 
    public static final String MOD_ID = "wastelands";

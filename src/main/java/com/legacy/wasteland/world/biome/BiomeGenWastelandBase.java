@@ -13,7 +13,7 @@ public class BiomeGenWastelandBase extends Biome {
       super(properties);
       this.spawnableCreatureList.clear();
       this.spawnableWaterCreatureList.clear();
-      this.decorator = new BiomeDecoratorWasteland();
+      this.theBiomeDecorator = new BiomeDecoratorWasteland();
       if(WorldConfig.shouldSpawnDayZombies) {
          this.spawnableCreatureList.add(new SpawnListEntry(EntityDayZombie.class, 100, 4, 4));
       }
@@ -26,11 +26,11 @@ public class BiomeGenWastelandBase extends Biome {
    }
 
    public void loadBiome() {
-      this.decorator.deadBushPerChunk = 5;
-      this.decorator.flowersPerChunk = -999;
-      this.decorator.generateFalls = false;
-      this.decorator.grassPerChunk = -999;
-      this.decorator.treesPerChunk = -999;
+      this.theBiomeDecorator.deadBushPerChunk = 5;
+      this.theBiomeDecorator.flowersPerChunk = -999;
+      this.theBiomeDecorator.generateLakes = false;
+      this.theBiomeDecorator.grassPerChunk = -999;
+      this.theBiomeDecorator.treesPerChunk = -999;
       this.topBlock = WorldConfig.getSurfaceBlock().getDefaultState();
       this.fillerBlock = WorldConfig.getFillerBlock().getDefaultState();
    }

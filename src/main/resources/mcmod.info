@@ -2,9 +2,9 @@
 {
   "modid": "wastelands",
   "name": "Wasteland Mod",
-  "description": "The classic Wasteland Mod, reborn for MC 1.12",
+  "description": "The classic Wasteland Mod, reborn for MC 1.11 & 1.12",
   "version": "1.0.0",
-  "mcversion": "1.12.2",
+  "mcversion": "1.11.2",
   "url": "",
   "updateUrl": "",
   "authorList": ["Silver_Weasek, The_Holy_Frog, MrSpring, GiMoe, 115kino, Hennamann"],

@@ -30,7 +30,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.BiomeDecorator;
-import net.minecraft.world.gen.ChunkGeneratorSettings.Factory;
+import net.minecraft.world.gen.ChunkProviderSettings.Factory;
 import net.minecraft.world.gen.feature.WorldGenDeadBush;
 import net.minecraft.world.gen.feature.WorldGenMinable;
 import net.minecraft.world.gen.feature.WorldGenerator;
@@ -57,7 +57,7 @@ public class BiomeDecoratorWasteland extends BiomeDecorator {
       this.flowersPerChunk = -999;
       this.grassPerChunk = -999;
       this.deadBushPerChunk = 5;
-      this.generateFalls = false;
+      this.generateLakes = false;
       this.treesPerChunk = -999;
    }
 

@@ -22,12 +22,12 @@ public class WorldTypeWasteland extends WorldType {
       return false;
    }
 
-   public net.minecraft.world.gen.IChunkGenerator getChunkGenerator(World world, String generatorOptions)
+   public net.minecraft.world.chunk.IChunkGenerator getChunkGenerator(World world, String generatorOptions)
    {
       return new ChunkGeneratorWasteland(world, world.getSeed(), world.getWorldInfo().isMapFeaturesEnabled(), generatorOptions);
    }
 
-   public net.minecraft.world.gen.layer.GenLayer getBiomeLayer(long worldSeed, net.minecraft.world.gen.layer.GenLayer parentLayer, net.minecraft.world.gen.ChunkGeneratorSettings chunkSettings) {
+   public net.minecraft.world.gen.layer.GenLayer getBiomeLayer(long worldSeed, net.minecraft.world.gen.layer.GenLayer parentLayer, net.minecraft.world.gen.ChunkProviderSettings chunkSettings) {
       WastelandGenLayer ret = new WastelandGenLayer(200L, parentLayer);
       GenLayer ret1 = GenLayerZoom.magnify(1000L, ret, 2);
       GenLayerBiomeEdge ret2 = new GenLayerBiomeEdge(1000L, ret1);
