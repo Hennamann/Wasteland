@@ -32,9 +32,6 @@ public class WastelandGenLayer extends GenLayer {
       for(i = 0; i < 40; ++i) {
          this.biomes.add(new BiomeEntry(WastelandWorld.apocalypse_desert, 10));
          this.biomes.add(new BiomeEntry(WastelandWorld.apocalypse, 10));
-         if (Loader.isModLoaded("mistcore")) {
-            this.biomes.add(new BiomeEntry(WastelandWorld.apocalypse_mist, 10));
-         }
       }
 
    }
