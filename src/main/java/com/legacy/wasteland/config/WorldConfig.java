@@ -3,7 +3,6 @@ package com.legacy.wasteland.config;
 import java.io.File;
 import java.io.IOException;
 
-import com.sun.istack.internal.NotNull;
 import net.minecraft.block.Block;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.config.Configuration;
