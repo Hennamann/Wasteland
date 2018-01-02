@@ -19,6 +19,7 @@ public class WorldConfig {
    public static boolean shouldSpawnBunker;
    public static boolean shouldSpawnDayZombies;
    public static boolean shouldSpawnCities;
+   public static boolean shouldSpawnMistBiome;
 
    public static void init(File location) {
       File newFile = new File(location + "/wasteland_mod" + "/World_Info.cfg");
@@ -38,6 +39,7 @@ public class WorldConfig {
       forestRuinRarity = config.get(topic, "Forest tent/treehouse/ruins rarity", 50).getInt(50);
       mountainRuinRarity = config.get(topic, "Mountain ruins rarity", 50).getInt(50);
       topic = "Worldgen Spawning";
+      shouldSpawnMistBiome = config.get(topic, "Spawn Mist Biome - Optional, requires Mist Core to be installed", true).getBoolean(true);
       shouldSpawnBunker = config.get(topic, "Spawn in underground bunker", true).getBoolean(true);
       shouldSpawnCities = config.get(topic, "Enable cities", true).getBoolean(true);
       shouldSpawnDayZombies = config.get(topic, "Allow zombies to spawn in daylight", true).getBoolean(true);

@@ -26,7 +26,7 @@ public class WastelandWorld {
       apocalypse_forest = register("Wasteland Forest", new BiomeGenForest(new WastelandPropertiesBase("Wasteland Forest", 0.1F, 0.05F, 10793807)));
       apocalypse_city = register("Wasteland City", new BiomeGenCity(new WastelandPropertiesBase("Wasteland City", 0.09F, 0.05F, 9410739)));
       apocalypse_desert = register("Wasteland Desert", new BiomeGenDesert(new WastelandPropertiesBase("Wasteland Desert", 0.09F, 0.05F, 9410739)));
-      if (Loader.isModLoaded("mistcore")) {
+      if (Loader.isModLoaded("mistcore") && WorldConfig.shouldSpawnMistBiome) {
           apocalypse_mist = register("Mist Wasteland", new BiomeGenApocalypseMist(new WastelandPropertiesBase("Misty Wasteland", 0.1F, 0.05F, 14728553)));
       }
       worldtype_wasteland = new WorldTypeWasteland();
