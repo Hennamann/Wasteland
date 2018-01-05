@@ -88,17 +88,17 @@ public class WastelandEventHandler {
    /*
    Stops zombies from burning during daytime.
    This could have been done better, not sure i need all these events, but hey it works!
-    */
+   */
    @SubscribeEvent
    public void zombieRenderOnFire(RenderLivingEvent event) {
-      if (event.getEntity() instanceof EntityZombie && event.getEntity().isBurning() && event.getEntity().world.getWorldType() == WastelandWorld.worldtype_wasteland) {
+      if (event.getEntity() instanceof EntityZombie && event.getEntity().isBurning() && event.getEntity().world.getWorldType() == WastelandWorld.worldtype_wasteland && WorldConfig.shouldSpawnDayZombies) {
          event.getEntity().extinguish();
       }
    }
 
    @SubscribeEvent
    public void zombieOnFire(LivingHurtEvent event) {
-      if (event.getEntity() instanceof EntityZombie && event.getSource() == DamageSource.ON_FIRE && event.getEntity().world.getWorldType() == WastelandWorld.worldtype_wasteland) {
+      if (event.getEntity() instanceof EntityZombie && event.getSource() == DamageSource.ON_FIRE && event.getEntity().world.getWorldType() == WastelandWorld.worldtype_wasteland && WorldConfig.shouldSpawnDayZombies) {
          event.getEntity().extinguish();
          event.setCanceled(true);
       }
@@ -106,7 +106,7 @@ public class WastelandEventHandler {
 
    @SubscribeEvent
    public void zombieUpdateFire(LivingUpdateEvent event) {
-      if (event.getEntity() instanceof EntityZombie && event.getEntity().isBurning() && event.getEntity().world.getWorldType() == WastelandWorld.worldtype_wasteland) {
+      if (event.getEntity() instanceof EntityZombie && event.getEntity().isBurning() && event.getEntity().world.getWorldType() == WastelandWorld.worldtype_wasteland && WorldConfig.shouldSpawnDayZombies) {
          event.getEntity().extinguish();
       }
    }
