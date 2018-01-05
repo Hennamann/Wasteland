@@ -19,6 +19,8 @@ public class WorldConfig {
    public static boolean shouldSpawnDayZombies;
    public static boolean shouldSpawnCities;
 
+   public static boolean shouldSpawnCyberZombies;
+
    public static void init(File location) {
       File newFile = new File(location + "/wasteland_mod" + "/World_Info.cfg");
 
@@ -40,6 +42,7 @@ public class WorldConfig {
       shouldSpawnBunker = config.get(topic, "Spawn in underground bunker", true).getBoolean(true);
       shouldSpawnCities = config.get(topic, "Enable cities", true).getBoolean(true);
       shouldSpawnDayZombies = config.get(topic, "Allow zombies to spawn in daylight", true).getBoolean(true);
+      shouldSpawnCyberZombies = config.get(topic, "Allow CyberZombies from the CyberWare mod to spawn, this is only in effect if the CyberWare mod is installed", true).getBoolean(true);
       topic = "Misc";
       surfaceBlock = config.get(topic, "The top block layer of the wasteland biome", "minecraft:dirt").getString();
       fillerBlock = config.get(topic, "Top filler block layer of the wasteland biome", "minecraft:stone").getString();

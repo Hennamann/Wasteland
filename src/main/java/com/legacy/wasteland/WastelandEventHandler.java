@@ -5,10 +5,15 @@ import com.legacy.wasteland.world.WastelandWorld;
 import com.legacy.wasteland.world.biome.decorations.BiomeDecoratorWasteland;
 import com.legacy.wasteland.world.util.WastelandWorldData;
 import java.util.List;
+
+import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.util.DamageSource;
 import net.minecraft.util.math.BlockPos;
+import net.minecraftforge.client.event.RenderLivingEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
+import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.world.WorldEvent.Load;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -78,6 +83,32 @@ public class WastelandEventHandler {
          }
       }
 
+   }
+
+   /*
+   Stops zombies from burning during daytime.
+   This could have been done better, not sure i need all these events, but hey it works!
+   */
+   @SubscribeEvent
+   public void zombieRenderOnFire(RenderLivingEvent event) {
+      if (event.getEntity() instanceof EntityZombie && event.getEntity().isBurning() && event.getEntity().world.getWorldType() == WastelandWorld.worldtype_wasteland && WorldConfig.shouldSpawnDayZombies) {
+         event.getEntity().extinguish();
+      }
+   }
+
+   @SubscribeEvent
+   public void zombieOnFire(LivingHurtEvent event) {
+      if (event.getEntity() instanceof EntityZombie && event.getSource() == DamageSource.ON_FIRE && event.getEntity().world.getWorldType() == WastelandWorld.worldtype_wasteland && WorldConfig.shouldSpawnDayZombies) {
+         event.getEntity().extinguish();
+         event.setCanceled(true);
+      }
+   }
+
+   @SubscribeEvent
+   public void zombieUpdateFire(LivingUpdateEvent event) {
+      if (event.getEntity() instanceof EntityZombie && event.getEntity().isBurning() && event.getEntity().world.getWorldType() == WastelandWorld.worldtype_wasteland && WorldConfig.shouldSpawnDayZombies) {
+         event.getEntity().extinguish();
+      }
    }
 
    private boolean isNewPlayer(EntityPlayer player) {
