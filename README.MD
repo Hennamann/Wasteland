@@ -1,5 +1,5 @@
-# Wasteland Mod - 1.12.2
-The classic Minecraft Wasteland mod reborn for 1.12.2
+# Wasteland Mod - 1.11.2
+The classic Minecraft Wasteland mod reborn for 1.11.2
 
 # Downloads
 Downloads for the mod can be found Curse: Soon(tm)
