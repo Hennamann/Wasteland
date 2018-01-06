@@ -1,8 +1,7 @@
 package com.legacy.wasteland.world;
 
 import com.legacy.wasteland.WastelandEventHandler;
-import com.legacy.wasteland.config.WorldConfig;
-import com.legacy.wasteland.world.WastelandWorld;
+import com.legacy.wasteland.config.WastelandConfig;
 import com.legacy.wasteland.world.biome.decorations.BiomeDecoratorWasteland;
 import java.util.List;
 import java.util.Random;
@@ -144,7 +143,7 @@ public class ChunkGeneratorWasteland implements IChunkGenerator {
                         if((lvt_45_1_ += d16) > 0.0D) {
                            primer.setBlockState(i * 4 + k2, i2 * 8 + j2, l * 4 + l2, STONE);
                         } else if(i2 * 8 + j2 < this.settings.seaLevel) {
-                           primer.setBlockState(i * 4 + k2, i2 * 8 + j2, l * 4 + l2, WorldConfig.getSurfaceBlock().getDefaultState());
+                           primer.setBlockState(i * 4 + k2, i2 * 8 + j2, l * 4 + l2, WastelandConfig.worldgen.getSurfaceBlock().getDefaultState());
                         }
                      }
 

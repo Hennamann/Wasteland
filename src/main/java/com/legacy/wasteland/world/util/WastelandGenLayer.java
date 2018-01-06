@@ -1,6 +1,6 @@
 package com.legacy.wasteland.world.util;
 
-import com.legacy.wasteland.config.WorldConfig;
+import com.legacy.wasteland.config.WastelandConfig;
 import com.legacy.wasteland.world.WastelandWorld;
 import java.util.ArrayList;
 import java.util.List;
@@ -9,7 +9,6 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.layer.GenLayer;
 import net.minecraft.world.gen.layer.IntCache;
 import net.minecraftforge.common.BiomeManager.BiomeEntry;
-import net.minecraftforge.fml.common.Loader;
 
 public class WastelandGenLayer extends GenLayer {
    private List biomes = new ArrayList();
@@ -18,7 +17,7 @@ public class WastelandGenLayer extends GenLayer {
       super(worldGenSeed);
       this.parent = parentLayer;
       int i;
-      if(WorldConfig.shouldSpawnCities) {
+      if(WastelandConfig.worldgen.shouldSpawnCities) {
          for(i = 0; i < 1; ++i) {
             this.biomes.add(new BiomeEntry(WastelandWorld.apocalypse_city, 10));
          }

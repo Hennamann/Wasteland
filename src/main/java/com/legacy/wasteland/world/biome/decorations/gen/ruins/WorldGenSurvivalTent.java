@@ -1,8 +1,8 @@
 package com.legacy.wasteland.world.biome.decorations.gen.ruins;
 
-import com.legacy.wasteland.config.LootConfig;
-import com.legacy.wasteland.config.WorldConfig;
 import java.util.Random;
+
+import com.legacy.wasteland.config.WastelandConfig;
 import net.minecraft.init.Blocks;
 import net.minecraft.tileentity.TileEntityChest;
 import net.minecraft.util.math.BlockPos;
@@ -15,27 +15,27 @@ public class WorldGenSurvivalTent extends WorldGenerator {
 
       int chest;
       for(chest = -3; chest < 3; ++chest) {
-         world.setBlockState(position.add(-2, 0, chest), WorldConfig.getSurfaceBlock().getDefaultState());
+         world.setBlockState(position.add(-2, 0, chest), WastelandConfig.worldgen.getSurfaceBlock().getDefaultState());
       }
 
       for(chest = -3; chest < 0; ++chest) {
-         world.setBlockState(position.add(-1, 0, chest), WorldConfig.getSurfaceBlock().getDefaultState());
+         world.setBlockState(position.add(-1, 0, chest), WastelandConfig.worldgen.getSurfaceBlock().getDefaultState());
       }
 
       world.setBlockState(position.west(1), Blocks.CHEST.getDefaultState());
       TileEntityChest var7 = (TileEntityChest)world.getTileEntity(position.west(1));
-      String[] usedLootTable = random.nextInt(3) == 0?LootConfig.ruinRareLoot:LootConfig.ruinEasyLoot;
+      String[] usedLootTable = random.nextInt(3) == 0?WastelandConfig.loot.ruinRareLoot:WastelandConfig.loot.ruinEasyLoot;
 
       int zCoord;
       for(zCoord = 0; zCoord < 2 + random.nextInt(3); ++zCoord) {
-         var7.setInventorySlotContents(random.nextInt(var7.getSizeInventory()), LootConfig.getLoot(usedLootTable)[random.nextInt(usedLootTable.length)]);
+         var7.setInventorySlotContents(random.nextInt(var7.getSizeInventory()), WastelandConfig.loot.getLoot(usedLootTable)[random.nextInt(usedLootTable.length)]);
       }
 
-      world.setBlockState(position.add(-1, 0, 1), WorldConfig.getSurfaceBlock().getDefaultState());
-      world.setBlockState(position.add(-1, 0, 2), WorldConfig.getSurfaceBlock().getDefaultState());
+      world.setBlockState(position.add(-1, 0, 1), WastelandConfig.worldgen.getSurfaceBlock().getDefaultState());
+      world.setBlockState(position.add(-1, 0, 2), WastelandConfig.worldgen.getSurfaceBlock().getDefaultState());
 
       for(zCoord = -3; zCoord < 3; ++zCoord) {
-         world.setBlockState(position.add(0, 0, zCoord), WorldConfig.getSurfaceBlock().getDefaultState());
+         world.setBlockState(position.add(0, 0, zCoord), WastelandConfig.worldgen.getSurfaceBlock().getDefaultState());
          if(zCoord == -1 || zCoord == 0 || zCoord == 1) {
             world.setBlockState(position.add(0, 0, zCoord), Blocks.PLANKS.getDefaultState());
             if(zCoord == 0) {
@@ -45,11 +45,11 @@ public class WorldGenSurvivalTent extends WorldGenerator {
       }
 
       for(zCoord = -3; zCoord < 3; ++zCoord) {
-         world.setBlockState(position.add(1, 0, zCoord), WorldConfig.getSurfaceBlock().getDefaultState());
+         world.setBlockState(position.add(1, 0, zCoord), WastelandConfig.worldgen.getSurfaceBlock().getDefaultState());
       }
 
       for(zCoord = -3; zCoord < 3; ++zCoord) {
-         world.setBlockState(position.add(2, 0, zCoord), WorldConfig.getSurfaceBlock().getDefaultState());
+         world.setBlockState(position.add(2, 0, zCoord), WastelandConfig.worldgen.getSurfaceBlock().getDefaultState());
       }
 
       for(zCoord = -3; zCoord < 3; ++zCoord) {

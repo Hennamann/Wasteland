@@ -1,7 +1,8 @@
 package com.legacy.wasteland.world.biome.decorations.gen;
 
-import com.legacy.wasteland.config.WorldConfig;
 import java.util.Random;
+
+import com.legacy.wasteland.config.WastelandConfig;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
@@ -275,7 +276,7 @@ public class WorldGenWastelandBigTree extends WorldGenBigTree {
    }
 
    private boolean validBigTreeLocation() {
-      return this.worldObj.getBlockState(this.basePos.down()).getBlock() == WorldConfig.getSurfaceBlock();
+      return this.worldObj.getBlockState(this.basePos.down()).getBlock() == WastelandConfig.worldgen.getSurfaceBlock();
    }
 
    public boolean generate(World world, Random random, BlockPos pos) {

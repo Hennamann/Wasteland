@@ -1,7 +1,5 @@
 package com.legacy.wasteland;
 
-import com.legacy.wasteland.config.LootConfig;
-import com.legacy.wasteland.config.WorldConfig;
 import com.legacy.wasteland.world.WastelandWorld;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
@@ -20,7 +18,7 @@ import static com.legacy.wasteland.Wasteland.VERSION;
 public class Wasteland {
 
    public static final String MOD_ID = "wastelands";
-   public static final String VERSION = "1.1.0";
+   public static final String VERSION = "1.2.0";
 
    public static Logger wastelandLogger;
 
@@ -34,8 +32,6 @@ public class Wasteland {
    @EventHandler
    public static void preInit(FMLPreInitializationEvent event) {
       wastelandLogger = event.getModLog();
-      LootConfig.init(event.getModConfigurationDirectory());
-      WorldConfig.init(event.getModConfigurationDirectory());
       PROXY.preInit();
    }
 
