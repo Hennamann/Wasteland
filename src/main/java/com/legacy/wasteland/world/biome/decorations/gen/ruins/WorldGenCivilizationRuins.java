@@ -1,7 +1,8 @@
 package com.legacy.wasteland.world.biome.decorations.gen.ruins;
 
-import com.legacy.wasteland.config.LootConfig;
 import java.util.Random;
+
+import com.legacy.wasteland.config.WastelandConfig;
 import net.minecraft.block.BlockStairs;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -115,7 +116,7 @@ public class WorldGenCivilizationRuins extends WorldGenerator {
             TileEntityChest k9 = (TileEntityChest)world.getTileEntity(pos.add(j8, -3, i9));
 
             for(l9 = 0; l9 < 2 + random.nextInt(2); ++l9) {
-               k9.setInventorySlotContents(random.nextInt(k9.getSizeInventory()), LootConfig.getLoot(LootConfig.seedLoot)[random.nextInt(LootConfig.seedLoot.length)]);
+               k9.setInventorySlotContents(random.nextInt(k9.getSizeInventory()), WastelandConfig.loot.getLoot(WastelandConfig.loot.seedLoot)[random.nextInt(WastelandConfig.loot.seedLoot.length)]);
             }
          }
 
@@ -248,11 +249,11 @@ public class WorldGenCivilizationRuins extends WorldGenerator {
 
          world.setBlockState(pos.add(var35, 1, l9), Blocks.CHEST.getDefaultState().withProperty(BlockStairs.FACING, EnumFacing.EAST));
          TileEntityChest chest1 = (TileEntityChest)world.getTileEntity(pos.add(var35, 1, l9));
-         String[] usedLootTable = random.nextInt(3) == 0?LootConfig.ruinRareLoot:LootConfig.ruinEasyLoot;
+         String[] usedLootTable = random.nextInt(3) == 0?WastelandConfig.loot.ruinRareLoot:WastelandConfig.loot.ruinEasyLoot;
 
          int i10;
          for(i10 = 0; i10 < 2 + random.nextInt(3); ++i10) {
-            chest1.setInventorySlotContents(random.nextInt(chest1.getSizeInventory()), LootConfig.getLoot(usedLootTable)[random.nextInt(usedLootTable.length)]);
+            chest1.setInventorySlotContents(random.nextInt(chest1.getSizeInventory()), WastelandConfig.loot.getLoot(usedLootTable)[random.nextInt(usedLootTable.length)]);
          }
 
          i10 = random.nextInt(2);
@@ -301,7 +302,7 @@ public class WorldGenCivilizationRuins extends WorldGenerator {
                TileEntityChest var37 = (TileEntityChest)world.getTileEntity(pos.add(3, 1, -3));
 
                for(treasureSize = 0; treasureSize < 2 + random.nextInt(2); ++treasureSize) {
-                  var37.setInventorySlotContents(random.nextInt(var37.getSizeInventory()), LootConfig.getLoot(LootConfig.seedLoot)[random.nextInt(LootConfig.seedLoot.length)]);
+                  var37.setInventorySlotContents(random.nextInt(var37.getSizeInventory()), WastelandConfig.loot.getLoot(WastelandConfig.loot.seedLoot)[random.nextInt(WastelandConfig.loot.seedLoot.length)]);
                }
             }
          }

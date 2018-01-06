@@ -1,6 +1,6 @@
 package com.legacy.wasteland;
 
-import com.legacy.wasteland.config.WorldConfig;
+import com.legacy.wasteland.config.WastelandConfig;
 import com.legacy.wasteland.world.WastelandWorld;
 import com.legacy.wasteland.world.biome.decorations.BiomeDecoratorWasteland;
 import com.legacy.wasteland.world.util.WastelandWorldData;
@@ -65,7 +65,7 @@ public class WastelandEventHandler {
             }
 
             if(!spawnSet && spawnLocation != null) {
-               if(!bunkerSpawned && WorldConfig.shouldSpawnBunker) {
+               if(!bunkerSpawned && WastelandConfig.worldgen.shouldSpawnBunker) {
                   if(!event.getWorld().isRemote) {
                      BiomeDecoratorWasteland.spawnBunker(event.getWorld());
                   }
@@ -91,14 +91,14 @@ public class WastelandEventHandler {
    */
    @SubscribeEvent
    public void zombieRenderOnFire(RenderLivingEvent event) {
-      if (event.getEntity() instanceof EntityZombie && event.getEntity().isBurning() && event.getEntity().world.getWorldType() == WastelandWorld.worldtype_wasteland && WorldConfig.shouldSpawnDayZombies) {
+      if (event.getEntity() instanceof EntityZombie && event.getEntity().isBurning() && event.getEntity().world.getWorldType() == WastelandWorld.worldtype_wasteland && WastelandConfig.worldgen.shouldSpawnDayZombies) {
          event.getEntity().extinguish();
       }
    }
 
    @SubscribeEvent
    public void zombieOnFire(LivingHurtEvent event) {
-      if (event.getEntity() instanceof EntityZombie && event.getSource() == DamageSource.ON_FIRE && event.getEntity().world.getWorldType() == WastelandWorld.worldtype_wasteland && WorldConfig.shouldSpawnDayZombies) {
+      if (event.getEntity() instanceof EntityZombie && event.getSource() == DamageSource.ON_FIRE && event.getEntity().world.getWorldType() == WastelandWorld.worldtype_wasteland && WastelandConfig.worldgen.shouldSpawnDayZombies) {
          event.getEntity().extinguish();
          event.setCanceled(true);
       }
@@ -106,7 +106,7 @@ public class WastelandEventHandler {
 
    @SubscribeEvent
    public void zombieUpdateFire(LivingUpdateEvent event) {
-      if (event.getEntity() instanceof EntityZombie && event.getEntity().isBurning() && event.getEntity().world.getWorldType() == WastelandWorld.worldtype_wasteland && WorldConfig.shouldSpawnDayZombies) {
+      if (event.getEntity() instanceof EntityZombie && event.getEntity().isBurning() && event.getEntity().world.getWorldType() == WastelandWorld.worldtype_wasteland && WastelandConfig.worldgen.shouldSpawnDayZombies) {
          event.getEntity().extinguish();
       }
    }

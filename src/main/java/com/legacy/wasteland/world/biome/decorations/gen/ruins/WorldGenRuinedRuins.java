@@ -1,8 +1,8 @@
 package com.legacy.wasteland.world.biome.decorations.gen.ruins;
 
-import com.legacy.wasteland.config.LootConfig;
-import com.legacy.wasteland.config.WorldConfig;
 import java.util.Random;
+
+import com.legacy.wasteland.config.WastelandConfig;
 import net.minecraft.block.BlockStairs;
 import net.minecraft.block.BlockStoneBrick;
 import net.minecraft.block.BlockStoneBrick.EnumType;
@@ -16,7 +16,7 @@ import net.minecraft.world.gen.feature.WorldGenerator;
 
 public class WorldGenRuinedRuins extends WorldGenerator {
    public boolean generate(World world, Random random, BlockPos pos) {
-      IBlockState surfaceState = WorldConfig.getSurfaceBlock().getDefaultState();
+      IBlockState surfaceState = WastelandConfig.worldgen.getSurfaceBlock().getDefaultState();
 
       int chest;
       for(int newPos = -7; newPos < 5; ++newPos) {
@@ -369,10 +369,10 @@ public class WorldGenRuinedRuins extends WorldGenerator {
       world.setBlockState(var9.add(-4, 0, -3), this.getRandomState(random));
       world.setBlockState(var9.add(-4, 0, -2), Blocks.CHEST.getDefaultState().withProperty(BlockStairs.FACING, EnumFacing.EAST));
       TileEntityChest var11 = (TileEntityChest)world.getTileEntity(var9.add(-4, 0, -2));
-      String[] var12 = random.nextInt(3) == 0?LootConfig.ruinRareLoot:LootConfig.ruinEasyLoot;
+      String[] var12 = random.nextInt(3) == 0?WastelandConfig.loot.ruinRareLoot:WastelandConfig.loot.ruinEasyLoot;
 
       for(int treasureSize = 0; treasureSize < 2 + random.nextInt(2); ++treasureSize) {
-         var11.setInventorySlotContents(random.nextInt(var11.getSizeInventory()), LootConfig.getLoot(var12)[random.nextInt(var12.length)]);
+         var11.setInventorySlotContents(random.nextInt(var11.getSizeInventory()), WastelandConfig.loot.getLoot(var12)[random.nextInt(var12.length)]);
       }
 
       world.setBlockState(var9.add(-4, 0, 4), this.getRandomState(random));

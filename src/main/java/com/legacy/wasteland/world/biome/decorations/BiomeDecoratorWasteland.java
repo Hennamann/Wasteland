@@ -1,8 +1,8 @@
 package com.legacy.wasteland.world.biome.decorations;
 
+import com.legacy.wasteland.Wasteland;
 import com.legacy.wasteland.WastelandEventHandler;
-import com.legacy.wasteland.config.LootConfig;
-import com.legacy.wasteland.config.WorldConfig;
+import com.legacy.wasteland.config.WastelandConfig;
 import com.legacy.wasteland.world.biome.BiomeGenApocalypse;
 import com.legacy.wasteland.world.biome.BiomeGenDesert;
 import com.legacy.wasteland.world.biome.BiomeGenForest;
@@ -53,7 +53,7 @@ public class BiomeDecoratorWasteland extends BiomeDecorator {
    public WorldGenerator house = new WorldGenCivilizationRuins();
 
    public BiomeDecoratorWasteland() {
-      this.firePerChunk = WorldConfig.randomFirePerChunk;
+      this.firePerChunk = WastelandConfig.worldgen.randomFirePerChunk;
       this.flowersPerChunk = -999;
       this.grassPerChunk = -999;
       this.deadBushPerChunk = 5;
@@ -107,15 +107,15 @@ public class BiomeDecoratorWasteland extends BiomeDecorator {
          }
       }
 
-      if(random.nextInt(100) == 0) {
+      if(random.nextInt(WastelandConfig.worldgen.oasisRarity) == 0 && WastelandConfig.biomes.oasisEnabled) {
          this.oasis.generate(world, random, world.getHeight(this.position.add(random.nextInt(16) + 8, 0, random.nextInt(16) + 8)));
       }
 
-      if(random.nextInt(WorldConfig.wastelandTreeSpawnRate * 15) == 0) {
+      if(random.nextInt(WastelandConfig.worldgen.wastelandTreeSpawnRate * 15) == 0) {
          this.deadTreeGen.generate(world, random, world.getHeight(this.position.add(random.nextInt(16) + 8, 0, random.nextInt(16) + 8)));
       }
 
-      if(random.nextInt(WorldConfig.wastelandRuinRarirty) == 0) {
+      if(random.nextInt(WastelandConfig.worldgen.wastelandRuinRarirty) == 0) {
          this.randomRubbleGen.generate(world, random, world.getHeight(this.position.add(random.nextInt(16) + 8, 0, random.nextInt(16) + 8)));
       }
 
@@ -139,25 +139,25 @@ public class BiomeDecoratorWasteland extends BiomeDecorator {
          this.randomFireGen.generate(world, random, world.getHeight(this.position.add(random.nextInt(16) + 8, 0, random.nextInt(16) + 8)));
       }
 
-      if(random.nextInt(WorldConfig.wastelandRuinRarirty) == 0) {
+      if(random.nextInt(WastelandConfig.worldgen.wastelandRuinRarirty) == 0) {
          this.house.generate(world, random, world.getHeight(this.position.add(random.nextInt(16), 0, random.nextInt(16))));
       }
 
    }
 
    private void decorateMountains(World world, Random random) {
-      if(random.nextInt(WorldConfig.mountainRuinRarity * 2) == 0) {
+      if(random.nextInt(WastelandConfig.worldgen.mountainRuinRarity * 2) == 0) {
          this.temple.generate(world, random, world.getHeight(this.position.add(random.nextInt(16), 0, random.nextInt(16))));
       }
 
    }
 
    private void decorateForest(World world, Random rand) {
-      if(rand.nextInt(WorldConfig.forestRuinRarity * 3) == 0) {
+      if(rand.nextInt(WastelandConfig.worldgen.forestRuinRarity * 3) == 0) {
          this.tent.generate(world, rand, world.getHeight(this.position.add(rand.nextInt(16), 0, rand.nextInt(16))));
       }
 
-      if(rand.nextInt(WorldConfig.forestRuinRarity * 2) == 0) {
+      if(rand.nextInt(WastelandConfig.worldgen.forestRuinRarity * 2) == 0) {
          this.treeHouse.generate(world, rand, world.getHeight(this.position.add(rand.nextInt(16), 0, rand.nextInt(16))));
       }
 
@@ -179,7 +179,7 @@ public class BiomeDecoratorWasteland extends BiomeDecorator {
                   TileEntityChest var11 = (TileEntityChest)world.getTileEntity(pos.add(i1, i, currentPos));
 
                   for(int treasureSize = 0; treasureSize < 3 + random.nextInt(4); ++treasureSize) {
-                     var11.setInventorySlotContents(random.nextInt(var11.getSizeInventory()), LootConfig.getLoot(LootConfig.startLoot)[random.nextInt(LootConfig.startLoot.length)]);
+                     var11.setInventorySlotContents(random.nextInt(var11.getSizeInventory()), WastelandConfig.loot.getLoot(WastelandConfig.loot.startLoot)[random.nextInt(WastelandConfig.loot.startLoot.length)]);
                   }
                } else if(count != 78 && count != 85) {
                   if(count == 136) {

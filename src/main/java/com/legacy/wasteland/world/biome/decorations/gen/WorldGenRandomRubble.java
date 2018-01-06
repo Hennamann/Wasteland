@@ -1,7 +1,8 @@
 package com.legacy.wasteland.world.biome.decorations.gen;
 
-import com.legacy.wasteland.config.WorldConfig;
 import java.util.Random;
+
+import com.legacy.wasteland.config.WastelandConfig;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.init.Blocks;
@@ -15,7 +16,7 @@ public class WorldGenRandomRubble extends WorldGenerator {
    }
 
    public boolean generate(World world, Random random, BlockPos pos) {
-      if(world.getBlockState(pos.down()).getBlock() == WorldConfig.getSurfaceBlock() && !world.getBlockState(pos.up()).getMaterial().isSolid() && !world.getBlockState(pos).getMaterial().isSolid() && !world.getBlockState(pos.south()).getMaterial().isSolid() && !world.getBlockState(pos.east()).getMaterial().isSolid() && !world.getBlockState(pos.west()).getMaterial().isSolid() && !world.getBlockState(pos.north()).getMaterial().isSolid() && world.isAirBlock(pos) && world.isAirBlock(pos.up())) {
+      if(world.getBlockState(pos.down()).getBlock() == WastelandConfig.worldgen.getSurfaceBlock() && !world.getBlockState(pos.up()).getMaterial().isSolid() && !world.getBlockState(pos).getMaterial().isSolid() && !world.getBlockState(pos.south()).getMaterial().isSolid() && !world.getBlockState(pos.east()).getMaterial().isSolid() && !world.getBlockState(pos.west()).getMaterial().isSolid() && !world.getBlockState(pos.north()).getMaterial().isSolid() && world.isAirBlock(pos) && world.isAirBlock(pos.up())) {
          for(int j1 = 0; j1 < 75; ++j1) {
             BlockPos randomPos = pos.add(random.nextInt(8), random.nextInt(4), random.nextInt(8));
             Material material6 = world.getBlockState(randomPos.down()).getMaterial();
