@@ -8,10 +8,11 @@ buildscript {
     }
 }
 apply plugin: 'net.minecraftforge.gradle.forge'
+apply plugin: 'maven-publish'
 //Only edit below this line, the above code adds and enables the necessary things for Forge to be setup.
 
 
-version = "1.2.0"
+version = "1.2.0-" + System.getenv('buildNumber')
 group = "com.legacy.wasteland" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "wastelands"
 
@@ -30,7 +31,7 @@ minecraft {
     // Use non-default mappings at your own risk. they may not always work.
     // simply re-run your setup task after changing the mappings to update your workspace.
     mappings = "snapshot_20171003"
-    // makeObfSourceJar = false // an Srg named sources jar is made by default. uncomment this to disable.
+    makeObfSourceJar = false // an Srg named sources jar is made by default. uncomment this to disable.
 }
 
 dependencies {
@@ -56,6 +57,17 @@ dependencies {
     // http://www.gradle.org/docs/current/userguide/dependency_management.html
 }
 
+sourceSets {
+    main {
+        java {
+            srcDir 'src/main/java'
+        }
+        resources {
+            srcDir 'resources'
+        }
+    }
+}
+
 processResources {
     // this will ensure that this task is redone when the versions change.
     inputs.property "version", project.version
@@ -73,4 +85,60 @@ processResources {
     from(sourceSets.main.resources.srcDirs) {
         exclude 'mcmod.info'
     }
+  }
+    
+    jar {
+    classifier = 'universal'
+}
+
+task sourcesJar(type: Jar) {
+    from sourceSets.main.allSource
+    classifier = 'sources'
+}
+
+task deobfJar(type: Jar) {
+    from(sourceSets.main.output)
+    classifier = 'dev'
+}
+
+task exportJavadoc(type: Javadoc) {
+    source = sourceSets.main.allSource
+}
+
+if (JavaVersion.current().isJava8Compatible()) {
+    allprojects {
+        tasks.withType(Javadoc) {
+            options.addStringOption('Xdoclint:none', '-quiet')
+        }
+    }
+}
+
+publishing {
+    tasks.publish.dependsOn 'build'
+    publications {
+        mavenJava(MavenPublication) {
+            groupId 'com.legacy.wastelands'
+            artifactId 'Wastelands-1.12'
+            from components.java
+
+            artifact sourcesJar
+            artifact deobfJar
+        }
+    }
+
+    repositories {
+            maven { 
+                credentials {
+                        username System.getenv('userMaven')
+                        password System.getenv('passMaven')
+                    }
+                    url System.getenv('urlMaven')
+            }
+       }
+}
+
+artifacts {
+    archives sourcesJar
+    archives deobfJar
+}
 }
