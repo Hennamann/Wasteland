@@ -12,7 +12,7 @@ apply plugin: 'maven-publish'
 //Only edit below this line, the above code adds and enables the necessary things for Forge to be setup.
 
 
-version = "1.11-1.2.0-" + + System.getenv('buildNumber')
+version = "1.2.0-" + + System.getenv('buildNumber')
 group = "com.legacy.wasteland" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "wastelands"
 
