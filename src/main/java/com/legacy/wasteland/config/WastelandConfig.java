@@ -31,6 +31,8 @@ public class WastelandConfig {
 
     @Config.Comment("Wasteland fires per chunk")
     public int randomFirePerChunk = 1;
+            @Config.Comment("Should vanilla structures spawn?")
+            public boolean shouldSpawnStructures = true;
 
     @Config.Comment("Wasteland ruins rarity")
     public int wastelandRuinRarirty = 50;
@@ -61,6 +63,8 @@ public class WastelandConfig {
 
     @Config.Comment("Allow CyberZombies from the CyberWare mod to spawn, this is only in effect if the CyberWare mod is installed")
     public boolean shouldSpawnCyberZombies = true;
+        @Config.Comment("Should the bunker spawn with a bed?")
+        public boolean shouldSpawnBunkerBed = true;
 
     public Block getSurfaceBlock() {
         return Block.REGISTRY.getObject(new ResourceLocation(surfaceBlock));
@@ -99,6 +103,9 @@ public class WastelandConfig {
 
         @Config.Comment("Ruins seed chest loot items")
         public String[] seedLoot = new String[]{"minecraft:wheat_seeds,8,2"};
+            @Config.Comment({"Should Wasteland Biomes be able to spawn in the overworld?", "NOTE: Setting this to true can cause issues with other mod's structures!"})
+            public boolean shouldWastelandBiomesSpawnInOverworld = false;
+        }
 
         @Config.Comment("Start bunker chest loot items")
         public String[] startLoot = new String[]{"minecraft:stone_sword,1,1", "minecraft:bread,2,2", "minecraft:leather_helmet,1,1", "minecraft:leather_boots,1,1", "minecraft:cooked_chicken,3,2", "minecraft:glass_bottle,2,1"};

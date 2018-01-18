@@ -20,12 +20,7 @@ import net.minecraft.world.WorldType;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.chunk.ChunkPrimer;
-import net.minecraft.world.gen.IChunkGenerator;
-import net.minecraft.world.gen.ChunkGeneratorSettings;
-import net.minecraft.world.gen.MapGenBase;
-import net.minecraft.world.gen.MapGenCaves;
-import net.minecraft.world.gen.NoiseGeneratorOctaves;
-import net.minecraft.world.gen.NoiseGeneratorPerlin;
+import net.minecraft.world.gen.*;
 import net.minecraft.world.gen.ChunkGeneratorSettings.Factory;
 import net.minecraft.world.gen.feature.WorldGenDungeons;
 import net.minecraft.world.gen.structure.MapGenMineshaft;
@@ -57,6 +52,7 @@ public class ChunkGeneratorWasteland implements IChunkGenerator {
    private MapGenStronghold strongholdGenerator = new MapGenStronghold();
    private MapGenVillage villageGenerator = new MapGenVillage();
    private MapGenMineshaft mineshaftGenerator = new MapGenMineshaft();
+   private MapGenBase ravineGenerator = new MapGenRavine();
    private Biome[] biomesForGeneration;
    double[] mainNoiseRegion;
    double[] minLimitRegion;
@@ -206,6 +202,9 @@ public class ChunkGeneratorWasteland implements IChunkGenerator {
 
          if(this.settings.useStrongholds) {
             this.strongholdGenerator.generate(this.worldObj, x, z, chunkprimer);
+         }
+         if(this.settings.useRavines) {
+            this.ravineGenerator.generate(this.worldObj, x, z, chunkprimer);
          }
       }
 
@@ -368,7 +367,7 @@ public class ChunkGeneratorWasteland implements IChunkGenerator {
    }
 
    public boolean generateStructures(Chunk chunkIn, int x, int z) {
-      return false;
+      return WastelandConfig.worldgen.shouldSpawnStructures;
    }
 
    public List getPossibleCreatures(EnumCreatureType creatureType, BlockPos pos) {
@@ -380,11 +379,6 @@ public class ChunkGeneratorWasteland implements IChunkGenerator {
    @Override
    public BlockPos getNearestStructurePos(World worldIn, String structureName, BlockPos position, boolean findUnexplored) {
       return null;
-   }
-
-   @Nullable
-   public BlockPos getStrongholdGen(World worldIn, String structureName, BlockPos position, boolean findUnexplored) {
-      return "Stronghold".equals(structureName) && this.strongholdGenerator != null?this.strongholdGenerator.getNearestStructurePos(worldIn, position, findUnexplored):null;
    }
 
    public void recreateStructures(Chunk chunkIn, int x, int z) {

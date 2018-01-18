@@ -101,6 +101,5 @@ public class BiomeGenDesert extends BiomeGenWastelandBase {
             }
          }
       }
-
    }
 }
