@@ -18,7 +18,7 @@ import static com.legacy.wasteland.Wasteland.VERSION;
 public class Wasteland {
 
    public static final String MOD_ID = "wastelands";
-   public static final String VERSION = "1.2.0";
+   public static final String VERSION = "1.2.2";
 
    public static Logger wastelandLogger;
 
