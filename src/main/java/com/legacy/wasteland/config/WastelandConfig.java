@@ -68,6 +68,9 @@ public class WastelandConfig {
     @Config.Comment("Should the bunker spawn with a bed?")
     public boolean shouldSpawnBunkerBed = true;
 
+    @Config.Comment("Should ores generate?")
+    public boolean shouldSpawnOres = true;
+
     public Block getSurfaceBlock() {
         return Block.REGISTRY.getObject(new ResourceLocation(surfaceBlock));
     }
