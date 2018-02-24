@@ -51,6 +51,20 @@ public class BiomeDecoratorWasteland extends BiomeDecorator {
    public WorldGenerator tent = new WorldGenSurvivalTent();
    public WorldGenerator temple = new WorldGenRuinedRuins();
    public WorldGenerator house = new WorldGenCivilizationRuins();
+    /** The dirt generator. */
+    public WorldGenerator dirtGen;
+    public WorldGenerator gravelOreGen;
+    public WorldGenerator graniteGen;
+    public WorldGenerator dioriteGen;
+    public WorldGenerator andesiteGen;
+    public WorldGenerator coalGen;
+    public WorldGenerator ironGen;
+    /** Field that holds gold WorldGenMinable */
+    public WorldGenerator goldGen;
+    public WorldGenerator redstoneGen;
+    public WorldGenerator diamondGen;
+    /** Field that holds Lapis WorldGenMinable */
+    public WorldGenerator lapisGen;
 
    public BiomeDecoratorWasteland() {
       this.firePerChunk = WastelandConfig.worldgen.randomFirePerChunk;
@@ -66,11 +80,9 @@ public class BiomeDecoratorWasteland extends BiomeDecorator {
          throw new RuntimeException("Already decorating");
       } else {
          this.position = pos;
-         this.chunkPos = pos;
          this.deadBushPerChunk = 5;
          this.chunkProviderSettings = Factory.jsonToFactory(worldIn.getWorldInfo().getGeneratorOptions()).build();
          this.dirtGen = new WorldGenMinable(Blocks.DIRT.getDefaultState(), this.chunkProviderSettings.dirtSize);
-         this.gravelGen = new WorldGenMinable(Blocks.GRAVEL.getDefaultState(), this.chunkProviderSettings.gravelSize);
          this.graniteGen = new WorldGenMinable(Blocks.STONE.getDefaultState().withProperty(BlockStone.VARIANT, EnumType.GRANITE), this.chunkProviderSettings.graniteSize);
          this.dioriteGen = new WorldGenMinable(Blocks.STONE.getDefaultState().withProperty(BlockStone.VARIANT, EnumType.DIORITE), this.chunkProviderSettings.dioriteSize);
          this.andesiteGen = new WorldGenMinable(Blocks.STONE.getDefaultState().withProperty(BlockStone.VARIANT, EnumType.ANDESITE), this.chunkProviderSettings.andesiteSize);
@@ -84,7 +96,11 @@ public class BiomeDecoratorWasteland extends BiomeDecorator {
       }
    }
 
+   @Override
    protected void genDecorations(Biome biomeGenBaseIn, World world, Random random) {
+      net.minecraftforge.common.MinecraftForge.EVENT_BUS.post(new net.minecraftforge.event.terraingen.DecorateBiomeEvent.Pre(world, random, position));
+      this.generateOres(world, random);
+
       if(biomeGenBaseIn instanceof BiomeGenApocalypse) {
          this.decorateWasteland(world, random);
       } else if(biomeGenBaseIn instanceof BiomeGenMountains) {
@@ -118,7 +134,7 @@ public class BiomeDecoratorWasteland extends BiomeDecorator {
       if(random.nextInt(WastelandConfig.worldgen.wastelandRuinRarirty) == 0) {
          this.randomRubbleGen.generate(world, random, world.getHeight(this.position.add(random.nextInt(16) + 8, 0, random.nextInt(16) + 8)));
       }
-
+       net.minecraftforge.common.MinecraftForge.EVENT_BUS.post(new net.minecraftforge.event.terraingen.DecorateBiomeEvent.Post(world, random, chunkPos));
    }
 
    private void decorateDesert(World world, Random random) {
@@ -131,7 +147,66 @@ public class BiomeDecoratorWasteland extends BiomeDecorator {
             this.cactusGen.generate(world, random, this.position.add(l9, j19, k13));
          }
       }
+   }
 
+   @Override
+   protected void generateOres(World worldIn, Random random)
+   {
+       if (WastelandConfig.worldgen.shouldSpawnOres) {
+           net.minecraftforge.common.MinecraftForge.ORE_GEN_BUS.post(new net.minecraftforge.event.terraingen.OreGenEvent.Pre(worldIn, random, position));
+           if (net.minecraftforge.event.terraingen.TerrainGen.generateOre(worldIn, random, dirtGen, position, net.minecraftforge.event.terraingen.OreGenEvent.GenerateMinable.EventType.DIRT))
+               this.genStandardOre1(worldIn, random, this.chunkProviderSettings.dirtCount, this.dirtGen, this.chunkProviderSettings.dirtMinHeight, this.chunkProviderSettings.dirtMaxHeight);
+           if (net.minecraftforge.event.terraingen.TerrainGen.generateOre(worldIn, random, dioriteGen, position, net.minecraftforge.event.terraingen.OreGenEvent.GenerateMinable.EventType.DIORITE))
+               this.genStandardOre1(worldIn, random, this.chunkProviderSettings.dioriteCount, this.dioriteGen, this.chunkProviderSettings.dioriteMinHeight, this.chunkProviderSettings.dioriteMaxHeight);
+           if (net.minecraftforge.event.terraingen.TerrainGen.generateOre(worldIn, random, graniteGen, position, net.minecraftforge.event.terraingen.OreGenEvent.GenerateMinable.EventType.GRANITE))
+               this.genStandardOre1(worldIn, random, this.chunkProviderSettings.graniteCount, this.graniteGen, this.chunkProviderSettings.graniteMinHeight, this.chunkProviderSettings.graniteMaxHeight);
+           if (net.minecraftforge.event.terraingen.TerrainGen.generateOre(worldIn, random, andesiteGen, position, net.minecraftforge.event.terraingen.OreGenEvent.GenerateMinable.EventType.ANDESITE))
+               this.genStandardOre1(worldIn, random, this.chunkProviderSettings.andesiteCount, this.andesiteGen, this.chunkProviderSettings.andesiteMinHeight, this.chunkProviderSettings.andesiteMaxHeight);
+           if (net.minecraftforge.event.terraingen.TerrainGen.generateOre(worldIn, random, coalGen, position, net.minecraftforge.event.terraingen.OreGenEvent.GenerateMinable.EventType.COAL))
+               this.genStandardOre1(worldIn, random, this.chunkProviderSettings.coalCount, this.coalGen, this.chunkProviderSettings.coalMinHeight, this.chunkProviderSettings.coalMaxHeight);
+           if (net.minecraftforge.event.terraingen.TerrainGen.generateOre(worldIn, random, ironGen, position, net.minecraftforge.event.terraingen.OreGenEvent.GenerateMinable.EventType.IRON))
+               this.genStandardOre1(worldIn, random, this.chunkProviderSettings.ironCount, this.ironGen, this.chunkProviderSettings.ironMinHeight, this.chunkProviderSettings.ironMaxHeight);
+           if (net.minecraftforge.event.terraingen.TerrainGen.generateOre(worldIn, random, goldGen, position, net.minecraftforge.event.terraingen.OreGenEvent.GenerateMinable.EventType.GOLD))
+               this.genStandardOre1(worldIn, random, this.chunkProviderSettings.goldCount, this.goldGen, this.chunkProviderSettings.goldMinHeight, this.chunkProviderSettings.goldMaxHeight);
+           if (net.minecraftforge.event.terraingen.TerrainGen.generateOre(worldIn, random, redstoneGen, position, net.minecraftforge.event.terraingen.OreGenEvent.GenerateMinable.EventType.REDSTONE))
+               this.genStandardOre1(worldIn, random, this.chunkProviderSettings.redstoneCount, this.redstoneGen, this.chunkProviderSettings.redstoneMinHeight, this.chunkProviderSettings.redstoneMaxHeight);
+           if (net.minecraftforge.event.terraingen.TerrainGen.generateOre(worldIn, random, diamondGen, position, net.minecraftforge.event.terraingen.OreGenEvent.GenerateMinable.EventType.DIAMOND))
+               this.genStandardOre1(worldIn, random, this.chunkProviderSettings.diamondCount, this.diamondGen, this.chunkProviderSettings.diamondMinHeight, this.chunkProviderSettings.diamondMaxHeight);
+           if (net.minecraftforge.event.terraingen.TerrainGen.generateOre(worldIn, random, lapisGen, position, net.minecraftforge.event.terraingen.OreGenEvent.GenerateMinable.EventType.LAPIS))
+               this.genStandardOre2(worldIn, random, this.chunkProviderSettings.lapisCount, this.lapisGen, this.chunkProviderSettings.lapisCenterHeight, this.chunkProviderSettings.lapisSpread);
+           net.minecraftforge.common.MinecraftForge.ORE_GEN_BUS.post(new net.minecraftforge.event.terraingen.OreGenEvent.Post(worldIn, random, position));
+       }
+   }
+
+   @Override
+   protected void genStandardOre1(World worldIn, Random random, int blockCount, WorldGenerator generator, int minHeight, int maxHeight)
+   {
+       if (maxHeight < minHeight) {
+         int i = minHeight;
+         minHeight = maxHeight;
+         maxHeight = i;
+      }
+      else if (maxHeight == minHeight) {
+         if (minHeight < 255) {
+            ++maxHeight;
+         }
+         else {
+            --minHeight;
+         }
+      }
+
+      for (int j = 0; j < blockCount; ++j) {
+         BlockPos blockpos = this.position.add(random.nextInt(16), random.nextInt(maxHeight - minHeight) + minHeight, random.nextInt(16));
+         generator.generate(worldIn, random, blockpos);
+      }
+   }
+
+   @Override
+   protected void genStandardOre2(World worldIn, Random random, int blockCount, WorldGenerator generator, int centerHeight, int spread) {
+      for (int i = 0; i < blockCount; ++i) {
+         BlockPos blockpos = this.position.add(random.nextInt(16), random.nextInt(spread) + random.nextInt(spread) + centerHeight - spread, random.nextInt(16));
+         generator.generate(worldIn, random, blockpos);
+      }
    }
 
    private void decorateWasteland(World world, Random random) {

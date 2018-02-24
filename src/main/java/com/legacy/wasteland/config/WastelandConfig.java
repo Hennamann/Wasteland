@@ -62,9 +62,12 @@ public class WastelandConfig {
         @Config.Comment("Allow CyberZombies from the CyberWare mod to spawn, this is only in effect if the CyberWare mod is installed")
         public boolean shouldSpawnCyberZombies = true;
 
-        public Block getSurfaceBlock() {
-            return Block.REGISTRY.getObject(new ResourceLocation(surfaceBlock));
-        }
+    @Config.Comment("Should ores generate?")
+    public boolean shouldSpawnOres = true;
+
+    public Block getSurfaceBlock() {
+        return Block.REGISTRY.getObject(new ResourceLocation(surfaceBlock));
+    }
 
         public Block getFillerBlock() {
             return Block.REGISTRY.getObject(new ResourceLocation(fillerBlock));
