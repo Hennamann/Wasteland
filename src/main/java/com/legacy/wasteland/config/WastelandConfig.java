@@ -26,53 +26,53 @@ public class WastelandConfig {
 
     public static class Worldgen {
 
-    @Config.Comment("Dead Tree Rarity")
-    public int wastelandTreeSpawnRate = 2;
+        @Config.Comment("Dead Tree Rarity")
+        public int wastelandTreeSpawnRate = 2;
 
-    @Config.Comment("Wasteland fires per chunk")
-    public int randomFirePerChunk = 1;
-            @Config.Comment("Should vanilla structures spawn?")
-            public boolean shouldSpawnStructures = true;
+        @Config.Comment("Wasteland fires per chunk")
+        public int randomFirePerChunk = 1;
+        @Config.Comment("Should vanilla structures spawn?")
+        public boolean shouldSpawnStructures = true;
 
-    @Config.Comment("Wasteland ruins rarity")
-    public int wastelandRuinRarirty = 50;
+        @Config.Comment("Wasteland ruins rarity")
+        public int wastelandRuinRarirty = 50;
 
-    @Config.Comment("Forest tent/treehouse/ruins rarity")
-    public int forestRuinRarity = 50;
+        @Config.Comment("Forest tent/treehouse/ruins rarity")
+        public int forestRuinRarity = 50;
 
-    @Config.Comment("Mountain ruins rarity")
-    public int mountainRuinRarity = 50;
+        @Config.Comment("Mountain ruins rarity")
+        public int mountainRuinRarity = 50;
 
-    @Config.Comment("Oasis rarity")
-    public int oasisRarity = 50;
+        @Config.Comment("Oasis rarity")
+        public int oasisRarity = 50;
 
-    @Config.Comment("Wasteland Top Block")
-    public String surfaceBlock = "minecraft:dirt";
+        @Config.Comment("Wasteland Top Block")
+        public String surfaceBlock = "minecraft:dirt";
 
-    @Config.Comment("Wasteland Fill Block")
-    public String fillerBlock = "minecraft:stone";
+        @Config.Comment("Wasteland Fill Block")
+        public String fillerBlock = "minecraft:stone";
 
-    @Config.Comment("Spawn in underground bunker")
-    public boolean shouldSpawnBunker = true;
+        @Config.Comment("Spawn in underground bunker")
+        public boolean shouldSpawnBunker = true;
 
-    @Config.Comment("Enable cities")
-    public boolean shouldSpawnCities = true;
+        @Config.Comment("Enable cities")
+        public boolean shouldSpawnCities = true;
 
-    @Config.Comment("Allow zombies to spawn in daylight")
-    public boolean shouldSpawnDayZombies = true;
+        @Config.Comment("Allow zombies to spawn in daylight")
+        public boolean shouldSpawnDayZombies = true;
 
-    @Config.Comment("Allow CyberZombies from the CyberWare mod to spawn, this is only in effect if the CyberWare mod is installed")
-    public boolean shouldSpawnCyberZombies = true;
+        @Config.Comment("Allow CyberZombies from the CyberWare mod to spawn, this is only in effect if the CyberWare mod is installed")
+        public boolean shouldSpawnCyberZombies = true;
         @Config.Comment("Should the bunker spawn with a bed?")
         public boolean shouldSpawnBunkerBed = true;
 
-    public Block getSurfaceBlock() {
-        return Block.REGISTRY.getObject(new ResourceLocation(surfaceBlock));
-    }
+        public Block getSurfaceBlock() {
+            return Block.REGISTRY.getObject(new ResourceLocation(surfaceBlock));
+        }
 
-    public Block getFillerBlock() {
-        return Block.REGISTRY.getObject(new ResourceLocation(fillerBlock));
-    }
+        public Block getFillerBlock() {
+            return Block.REGISTRY.getObject(new ResourceLocation(fillerBlock));
+        }
     }
 
     public static class Biomes {
@@ -103,46 +103,46 @@ public class WastelandConfig {
 
         @Config.Comment("Ruins seed chest loot items")
         public String[] seedLoot = new String[]{"minecraft:wheat_seeds,8,2"};
-            @Config.Comment({"Should Wasteland Biomes be able to spawn in the overworld?", "NOTE: Setting this to true can cause issues with other mod's structures!"})
-            public boolean shouldWastelandBiomesSpawnInOverworld = false;
-        }
+        @Config.Comment({"Should Wasteland Biomes be able to spawn in the overworld?", "NOTE: Setting this to true can cause issues with other mod's structures!"})
+        public boolean shouldWastelandBiomesSpawnInOverworld = false;
+    }
 
-        @Config.Comment("Start bunker chest loot items")
-        public String[] startLoot = new String[]{"minecraft:stone_sword,1,1", "minecraft:bread,2,2", "minecraft:leather_helmet,1,1", "minecraft:leather_boots,1,1", "minecraft:cooked_chicken,3,2", "minecraft:glass_bottle,2,1"};
+    @Config.Comment("Start bunker chest loot items")
+    public String[] startLoot = new String[]{"minecraft:stone_sword,1,1", "minecraft:bread,2,2", "minecraft:leather_helmet,1,1", "minecraft:leather_boots,1,1", "minecraft:cooked_chicken,3,2", "minecraft:glass_bottle,2,1"};
 
 
-        public  ItemStack[] getLoot(String[] rawStringArray) {
-            ItemStack[] items = new ItemStack[rawStringArray.length];
+    public ItemStack[] getLoot(String[] rawStringArray) {
+        ItemStack[] items = new ItemStack[rawStringArray.length];
 
-            for(int i = 0; i < rawStringArray.length; ++i) {
-                if(rawStringArray[i].length() > 0) {
-                    String[] split = rawStringArray[i].split(",");
-                    int max;
-                    int min;
-                    if(split.length == 3) {
-                        max = Integer.parseInt(split[1]);
-                        min = Integer.parseInt(split[2]);
-                    } else {
-                        max = 1;
-                        min = 1;
-                    }
-
-                    int range = max - min <= 0?1:max - min;
-                    items[i] = GameRegistry.makeItemStack(split[0], 0, (new Random()).nextInt(range) + 1, null);
+        for (int i = 0; i < rawStringArray.length; ++i) {
+            if (rawStringArray[i].length() > 0) {
+                String[] split = rawStringArray[i].split(",");
+                int max;
+                int min;
+                if (split.length == 3) {
+                    max = Integer.parseInt(split[1]);
+                    min = Integer.parseInt(split[2]);
+                } else {
+                    max = 1;
+                    min = 1;
                 }
-            }
 
-            return items;
-        }
-    }
-
-    @Mod.EventBusSubscriber(modid = Wasteland.MOD_ID)
-    private static class EventHandler {
-        @SubscribeEvent
-        public static void onConfigChangedEvent(final ConfigChangedEvent.OnConfigChangedEvent event) {
-            if (event.getModID().equals(Wasteland.MOD_ID)) {
-                ConfigManager.sync(Wasteland.MOD_ID, Config.Type.INSTANCE);
+                int range = max - min <= 0 ? 1 : max - min;
+                items[i] = GameRegistry.makeItemStack(split[0], 0, (new Random()).nextInt(range) + 1, null);
             }
         }
+
+        return items;
     }
+}
+
+@Mod.EventBusSubscriber(modid = Wasteland.MOD_ID)
+private static class EventHandler {
+    @SubscribeEvent
+    public static void onConfigChangedEvent(final ConfigChangedEvent.OnConfigChangedEvent event) {
+        if (event.getModID().equals(Wasteland.MOD_ID)) {
+            ConfigManager.sync(Wasteland.MOD_ID, Config.Type.INSTANCE);
+        }
+    }
+}
 }

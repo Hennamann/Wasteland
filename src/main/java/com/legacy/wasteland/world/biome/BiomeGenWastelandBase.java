@@ -9,37 +9,37 @@ import net.minecraft.world.biome.BiomeDecorator;
 import net.minecraftforge.fml.common.Loader;
 
 public class BiomeGenWastelandBase extends Biome {
-   public BiomeGenWastelandBase(BiomeProperties properties) {
-      super(properties);
-      this.spawnableCreatureList.clear();
-      this.spawnableWaterCreatureList.clear();
-      this.decorator = new BiomeDecoratorWasteland();
-      if(WastelandConfig.worldgen.shouldSpawnDayZombies) {
-         this.spawnableCreatureList.add(new SpawnListEntry(EntityZombie.class, 100, 4, 5));
-      }
-      try {
-         if (Loader.isModLoaded("cyberware") && WastelandConfig.worldgen.shouldSpawnCyberZombies && WastelandConfig.worldgen.shouldSpawnDayZombies) {
-            Class cyberZombie = Class.forName("flaxbeard.cyberware.common.entity.EntityCyberZombie");
-            Wasteland.wastelandLogger.info("Found flaxbeard.cyberware.common.entity.EntityCyberZombie adding CyberWare support");
-            this.spawnableCreatureList.add(new SpawnListEntry(cyberZombie, 100, 4, 4));
-         }
-      } catch(Exception ex) {
-         Wasteland.wastelandLogger.warn("Could not find: flaxbeard.cyberware.common.entity.EntityCyberZombie skipping CyberWare support");
-      }
-      this.loadBiome();
-   }
+    public BiomeGenWastelandBase(BiomeProperties properties) {
+        super(properties);
+        this.spawnableCreatureList.clear();
+        this.spawnableWaterCreatureList.clear();
+        this.decorator = new BiomeDecoratorWasteland();
+        if (WastelandConfig.worldgen.shouldSpawnDayZombies) {
+            this.spawnableCreatureList.add(new SpawnListEntry(EntityZombie.class, 100, 4, 5));
+        }
+        try {
+            if (Loader.isModLoaded("cyberware") && WastelandConfig.worldgen.shouldSpawnCyberZombies && WastelandConfig.worldgen.shouldSpawnDayZombies) {
+                Class cyberZombie = Class.forName("flaxbeard.cyberware.common.entity.EntityCyberZombie");
+                Wasteland.wastelandLogger.info("Found flaxbeard.cyberware.common.entity.EntityCyberZombie adding CyberWare support");
+                this.spawnableCreatureList.add(new SpawnListEntry(cyberZombie, 100, 4, 4));
+            }
+        } catch (Exception ex) {
+            Wasteland.wastelandLogger.warn("Could not find: flaxbeard.cyberware.common.entity.EntityCyberZombie skipping CyberWare support");
+        }
+        this.loadBiome();
+    }
 
-   public BiomeDecorator getModdedBiomeDecorator(BiomeDecorator original) {
-      return new BiomeDecoratorWasteland();
-   }
+    public BiomeDecorator getModdedBiomeDecorator(BiomeDecorator original) {
+        return new BiomeDecoratorWasteland();
+    }
 
-   public void loadBiome() {
-      this.decorator.deadBushPerChunk = 5;
-      this.decorator.flowersPerChunk = -999;
-      this.decorator.generateFalls = false;
-      this.decorator.grassPerChunk = -999;
-      this.decorator.treesPerChunk = -999;
-      this.topBlock = WastelandConfig.worldgen.getSurfaceBlock().getDefaultState();
-      this.fillerBlock = WastelandConfig.worldgen.getFillerBlock().getDefaultState();
-   }
+    public void loadBiome() {
+        this.decorator.deadBushPerChunk = 5;
+        this.decorator.flowersPerChunk = -999;
+        this.decorator.generateFalls = false;
+        this.decorator.grassPerChunk = -999;
+        this.decorator.treesPerChunk = -999;
+        this.topBlock = WastelandConfig.worldgen.getSurfaceBlock().getDefaultState();
+        this.fillerBlock = WastelandConfig.worldgen.getFillerBlock().getDefaultState();
+    }
 }
