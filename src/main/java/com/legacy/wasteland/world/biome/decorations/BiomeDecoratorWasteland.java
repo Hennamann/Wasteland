@@ -102,7 +102,6 @@ public class BiomeDecoratorWasteland extends BiomeDecorator {
 
    @Override
    protected void genDecorations(Biome biomeGenBaseIn, World world, Random random) {
-      net.minecraftforge.common.MinecraftForge.EVENT_BUS.post(new net.minecraftforge.event.terraingen.DecorateBiomeEvent.Pre(world, random, position));
       this.generateOres(world, random);
 
       if(biomeGenBaseIn instanceof BiomeGenApocalypse) {
@@ -138,8 +137,7 @@ public class BiomeDecoratorWasteland extends BiomeDecorator {
       if(random.nextInt(WastelandConfig.worldgen.wastelandRuinRarirty) == 0) {
          this.randomRubbleGen.generate(world, random, world.getHeight(this.position.add(random.nextInt(16) + 8, 0, random.nextInt(16) + 8)));
       }
-       net.minecraftforge.common.MinecraftForge.EVENT_BUS.post(new net.minecraftforge.event.terraingen.DecorateBiomeEvent.Post(world, random, chunkPos));
-   }
+    }
 
    private void decorateDesert(World world, Random random) {
       for(int j5 = 0; j5 < 20; ++j5) {
