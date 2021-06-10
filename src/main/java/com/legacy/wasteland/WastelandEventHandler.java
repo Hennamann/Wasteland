@@ -8,6 +8,7 @@ import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 import net.minecraftforge.client.event.RenderLivingEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
@@ -28,8 +29,9 @@ public class WastelandEventHandler {
 
     @SubscribeEvent
     public void loadData(Load event) {
-        if (event.getWorld().getWorldType() == WastelandWorld.worldtype_wasteland) {
-            this.worldFileCache = new WastelandWorldData("saves/" + FMLCommonHandler.instance().getMinecraftServerInstance().getFolderName() + "/data/wasteland_cache.dat");
+        World world = event.getWorld();
+        if (!world.isRemote && world.getWorldType() == WastelandWorld.worldtype_wasteland) {
+            this.worldFileCache = new WastelandWorldData(world.getSaveHandler().getWorldDirectory() + "/data/wasteland_cache.dat");
             if (!this.worldFileCache.checkIfExists()) {
                 bunkerSpawned = false;
                 spawnSet = false;
