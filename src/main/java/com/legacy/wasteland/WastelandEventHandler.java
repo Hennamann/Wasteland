@@ -30,7 +30,7 @@ public class WastelandEventHandler {
     @SubscribeEvent
     public void loadData(Load event) {
         World world = event.getWorld();
-        if (!world.isRemote && world.getWorldType() == WastelandWorld.worldtype_wasteland) {
+        if (world.getWorldType() == WastelandWorld.worldtype_wasteland) {
             this.worldFileCache = new WastelandWorldData(world.getSaveHandler().getWorldDirectory() + "/data/wasteland_cache.dat");
             if (!this.worldFileCache.checkIfExists()) {
                 bunkerSpawned = false;
